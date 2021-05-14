@@ -1,8 +1,41 @@
+import { ON_START, ON_SUCCESS, ON_FAIL, ADD_SMURF, ON_ERROR } from "../actions";
 
 export const initialState = {
+    smurf: [],
+    isLoading: true,
+    errorMessage: ""
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action)=>{
+    switch(action.type){
+        case(ON_START):
+            return({
+                ...state,
+                isLoading: false
+            })
+        case(ON_SUCCESS):
+            return({
+                ...state,
+                smurf: action.payload
+            })
+        case(ON_FAIL):
+            return({
+                ...state,
+                errorMessage: action.payload
+            })
+        case(ADD_SMURF):
+            return({
+                ...state,
+                    smurf: [...state.smurf, action.payload]
+            })
+        case(ON_ERROR):
+            return({
+                ...state,
+                errorMessage: "error message"
+            })
+        default:
+            return state;
+    }
 }
 
 export default reducer;
